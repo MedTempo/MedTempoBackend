@@ -1,6 +1,6 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 
-import Roteador from "./config/Roteador.ts";
+import Roteador from "./rotas/index.ts";
 
 const app = new Application()
 
