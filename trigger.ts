@@ -1,6 +1,9 @@
+/* deno run --allow-net --allow-ffi --unstable trigger.ts */
+
+
 import { Application } from "https://deno.land/x/oak/mod.ts";
 
-import Roteador from "./rotas/index.ts";
+import Roteador from "./config/Roteador.ts";
 
 const app = new Application()
 
