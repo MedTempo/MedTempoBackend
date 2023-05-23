@@ -3,22 +3,16 @@ import type ICaminho from "../interfaces/caminho.ts"; ""
 
 
 let get = function(ctx: Context){
-    ctx.response.body = "Hello World!" 
+    ctx.response.body = "Teste" 
 }
 
 
 let rotas: Array<ICaminho> = [
     { 
-        caminho: `/`,
+        caminho: `/teste`,
         metodo: `GET`,
         ctrl: get
-    },
-    { 
-        caminho: `/hello`,
-        metodo: `GET`,
-        ctrl: get
-    }
-
+     }
 ]
 
 export default rotas
