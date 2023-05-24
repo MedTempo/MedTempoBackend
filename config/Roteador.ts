@@ -16,7 +16,7 @@ for await (const caminho of Deno.readDir("./rotas")) {
     //Roteador.get("/", );
 }*/
 
-/*
+/*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 for await (const caminho of Deno.readDir("./rotas")) {
     rotas.push(await import(`../rotas/${caminho.name}`))
     //Roteador.get(`/${i}`, rotas[i].default );
