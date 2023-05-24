@@ -1,9 +1,10 @@
-import cassandra from "npm:cassandra-driver"
+import cassandra, { Client } from "npm:cassandra-driver"
 import credential from "./credentials.ts"
 
+let client: Client;
 
 try{
-    const client = new cassandra.Client({
+    client = new cassandra.Client({
 
         contactPoints: ["172.18.0.3:9042",],
         localDataCenter: "datacenter1",
@@ -17,9 +18,11 @@ try{
         */
     });
 }
-
 catch(err){
-    
+
+    console.log(`:(`)
+
+    throw err;
 }
 
 await client.connect()
