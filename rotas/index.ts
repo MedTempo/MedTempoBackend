@@ -1,9 +1,23 @@
 import type { Context } from "https://deno.land/x/oak/mod.ts";
 import type ICaminho from "../interfaces/caminho.ts"; ""
 
+import Database from "../config/Database.ts";
 
-let get = function(ctx: Context){
-    ctx.response.body = "Hello World!" 
+let get = async function(ctx: Context){
+
+    Database.Show()
+
+    let query = await Database.Execute(`query{
+        mytable{    
+            values{
+                firstname
+                lastname
+                favorite_color
+            }
+        }
+    }`)
+
+    ctx.response.body = query
 }
 
 

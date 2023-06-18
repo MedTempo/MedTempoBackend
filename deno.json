@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "strict": false
+  },
+
+  "tasks": {
+    "dev": "deno run --watch --allow-net --allow-read --allow-env trigger.ts"
+  },
+
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "lineWidth": 80,
+      "singleQuote": false,
+      "proseWrap": "always"
+    }
+  },
+
+  "lock": false,
+
+  "nodeModulesDir": false
+}
