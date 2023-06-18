@@ -1,1 +1,12 @@
 *.env
+
+
+*.json
+
+
+*credentials.ts
+
+
+*.zip
+
+*.tar.gz

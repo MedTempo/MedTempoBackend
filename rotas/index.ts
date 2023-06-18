@@ -1,5 +1,6 @@
 import type { Context } from "https://deno.land/x/oak/mod.ts";
-import type ICaminho from "../interfaces/caminho.ts"; ""
+import type ICaminho from "../interfaces/caminho.ts";
+import client from "../config/db/Database.ts"
 
 import Database from "../config/Database.ts";
 
