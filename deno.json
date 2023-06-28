@@ -5,7 +5,8 @@
   },
 
   "tasks": {
-    "dev": "deno run --watch --allow-net --allow-read --allow-env trigger.ts"
+    "dev": "deno run --watch --allow-net --allow-read --allow-env trigger.ts",
+    "start": "deno run --allow-net --allow-env trigger.ts"
   },
 
   "fmt": {

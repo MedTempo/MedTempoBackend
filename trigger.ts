@@ -4,10 +4,14 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 
 import Roteador from "./config/Roteador.ts";
+import Cors from "./config/Cors.ts";
 
 const app = new Application()
 
 const porta = 7777
+
+
+app.use(Cors)
 
 app.use(Roteador.routes())
 app.use(Roteador.allowedMethods())
