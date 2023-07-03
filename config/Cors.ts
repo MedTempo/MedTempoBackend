@@ -9,5 +9,7 @@ export default async function(ctx: Context, next){
 
     ctx.response.headers.set(`Access-Control-Allow-Origin`, `*`)
 
+    ctx.response.headers.set(`Access-Control-Allow-Headers`, `*`)
+
     await next()
 }

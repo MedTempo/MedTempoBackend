@@ -4,11 +4,12 @@ import { Router } from "https://deno.land/x/oak/mod.ts";
 const Roteador = new Router();
 
 import index from "../rotas/index.ts"
-
+import teste from  "../rotas/teste.ts"
 
 
 let rotas: Array<any> = [
-    index
+    index,
+    teste
 ]
 /*
 for await (const caminho of Deno.readDir("./rotas")) {
