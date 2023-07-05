@@ -1,0 +1,9 @@
+mutation DeleteUsuarioPessoal ($id: Uuid) {
+  delete: deleteusuario_pessoal(value: { id: $id, }, ifExists: true ) {
+    value {
+      id,
+      nome,
+      sobrenome
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Context, Router } from "https://deno.land/x/oak/mod.ts";
 
 
 const Roteador = new Router();
@@ -24,7 +24,11 @@ for await (const caminho of Deno.readDir("./rotas")) {
 }
 */
 
+let not_found  = async function (ctx: Context) {
+    ctx.response.status = 404
 
+    ctx.response.body = `Not Found`
+}
 
 for (let i = 0; i < rotas.length; i++) {
 
@@ -33,15 +37,27 @@ for (let i = 0; i < rotas.length; i++) {
 
         if(rotas[i][j].metodo === `GET`){
             Roteador.get(rotas[i][j].caminho, rotas[i][j].ctrl);
+           // Roteador.get(`/*`, not_found)
         }
         else if(rotas[i][j].metodo === `POST` ){
             Roteador.post(rotas[i][j].caminho, rotas[i][j].ctrl);
+            //Roteador.post(`/*`, not_found)
+        }
+        else if(rotas[i][j].metodo === `DELETE` ){
+            Roteador.delete(rotas[i][j].caminho, rotas[i][j].ctrl);
+           // Roteador.delete(`/*`, not_found)
+        }
+        else if(rotas[i][j].metodo === `PATCH` ){
+            Roteador.patch(rotas[i][j].caminho, rotas[i][j].ctrl);
+           // Roteador.delete(`/*`, not_found)
         }
 
     }
 
     //console.log(rotas[i].[0])    
 }
+
+
 
 
 //console.log(rotas[i].);

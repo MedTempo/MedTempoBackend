@@ -11,5 +11,9 @@ export default async function(ctx: Context, next){
 
     ctx.response.headers.set(`Access-Control-Allow-Headers`, `*`)
 
+    ctx.response.headers.set(`Access-Control-Allow-Methods`, ` POST, GET, PATCH, DELETE`)
+
+    ctx.response.headers.set(`Access-Control-Max-Age`, `7777`)
+
     await next()
 }

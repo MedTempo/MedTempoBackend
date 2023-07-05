@@ -1,14 +1,16 @@
 import type { Context } from "https://deno.land/x/oak/mod.ts";
 import type ICaminho from "../interfaces/caminho.ts";
-"";
+
 import type { usuario_pessoal } from "../interfaces/usuarios.ts";
 
 import Database from "../config/Database.ts";
 import usuario_pessoal_validacao from "./validadores/usuarios_validacao.ts";
 
+
 const get = async function (ctx: Context) {
   Database.Show();
 
+  /*
   let insert = await Database.Execute(
     await Deno.readTextFile(`config/db_opertaion/InsertUserPessoal.gql`),
     {
@@ -25,6 +27,7 @@ const get = async function (ctx: Context) {
       "sobrenome": "Silveira Vieira",
     },
   );
+*/
 
   let query = await Database.Execute(
     await Deno.readTextFile(`config/db_opertaion/SelectAllUserPessoal.gql`),
@@ -38,44 +41,10 @@ const post = async function (ctx: Context, next) {
 
   const body: usuario_pessoal = await ctx.request.body().value;
 
-  let insert = await Database.Execute(
-    `mutation InsertUserPessoal(
-        $id: Uuid,
-        $nome: String,
-        $sobrenome: String
-        $email: String,
-        $senha: String,
-        $idade: TinyInt,
-        $data_nascimento: Date,
-        $data_criacao: Date,
-        $descricao: String,
-      
-      ){
-        user_pessoal: insertusuario_pessoal(value: {
-          id: $id,
-          nome: $nome,
-          sobrenome: $sobrenome,
-          sexo: false,
-      
-          email: $email,
-          hash_senha: $senha,
-          
-          idade: $idade,
-          data_nascimento: $data_nascimento,
-          data_criacao: $data_criacao,
-      
-          descricao: $descricao,
-        }){
-          value{
-            id,
-            nome,
-            sobrenome
-          }
-        }
-      }`,
+  let insert = await Database.Execute(await Deno.readTextFile(`config/db_opertaion/InsertUserPessoal.gql`),
     {
       id: crypto.randomUUID(),
-      data_criacao: new Date().toISOString().slice(0,10 ),
+      data_criacao: new Date().toISOString().slice(0, 10),
       data_nascimento: body.data_nascimento,
       descricao: body.descricao,
       email: body.email,
@@ -83,21 +52,73 @@ const post = async function (ctx: Context, next) {
       idade: body.idade,
       nome: body.nome,
       sexo: body.sexo,
-      sobrenome: body.sobrenome ,
+      sobrenome: body.sobrenome,
     },
   );
 
   ctx.response.body = true;
 };
 
+
+const patch = async function (ctx: Context, next) {
+
+  const body = await ctx.request.body().value;
+
+  console.log(body)
+
+  if (typeof body.id == `string`) {
+    await Database.Execute(
+      await Deno.readTextFile(`config/db_opertaion/UpdateUserPessoal.gql`),
+      {
+        id: body.id,
+        data_criacao: new Date().toISOString().slice(0, 10),
+        data_nascimento: body.data_nascimento,
+        descricao: body.descricao,
+        email: body.email,
+        senha: `hash senha`,
+        idade: body.idade,
+        nome: body.nome,
+        sexo: body.sexo,
+        sobrenome: body.sobrenome,
+      },
+    );
+  
+  }
+
+  ctx.response.body = true
+};
+
+
+const delete_route = async function (ctx: Context, next) {
+
+  const body = await ctx.request.body().value;
+
+  console.log(body)
+
+  if (typeof body.id == `string`) {
+    await Database.Execute(
+      `mutation DeleteUsuarioPessoal ($id: Uuid) {
+      delete: deleteusuario_pessoal(value: { id: $id, }, ifExists: true ) {
+        value {
+          id,
+          nome,
+          sobrenome
+        }
+      }
+    }`,
+      {
+        id: body.id
+      },
+    );
+  
+  }
+
+  ctx.response.body = true
+};
+
 let rotas: Array<ICaminho> = [
   {
     caminho: `/`,
-    metodo: `GET`,
-    ctrl: get,
-  },
-  {
-    caminho: `/hello`,
     metodo: `GET`,
     ctrl: get,
   },
@@ -111,6 +132,17 @@ let rotas: Array<ICaminho> = [
     metodo: `POST`,
     ctrl: post,
   },
+  {
+    caminho: `/usuarios`,
+    metodo: `DELETE`,
+    ctrl: delete_route,
+  },
+  {
+    caminho: `/usuarios`,
+    metodo: `PATCH`,
+    ctrl: patch,
+  },
+  
 ];
 
 export default rotas;

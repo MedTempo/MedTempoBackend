@@ -1,4 +1,4 @@
-mutation InsertUserPessoal(
+mutation UpdateUserPessoal(
   $id: Uuid,
   $nome: String,
   $sobrenome: String
@@ -12,7 +12,7 @@ mutation InsertUserPessoal(
   $descricao: String,
 
 ){
-  user_pessoal: insertusuario_pessoal(value: {
+   userpessoal: updateusuario_pessoal(value: {
     id: $id,
     nome: $nome,
     sobrenome: $sobrenome,
@@ -34,3 +34,4 @@ mutation InsertUserPessoal(
     }
   }
 }
+
